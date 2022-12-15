@@ -1,18 +1,12 @@
-import { SendNotification } from './send-notification';
 import { randomUUID } from 'node:crypto';
-import { Notification } from '../entity/notification';
 
-const notifications: Notification[] = [];
-
-const notificationRepsitory = {
-  async create(notification: Notification): Promise<void> {
-    await notifications.push(notification);
-  },
-};
+import InMemoryNotificationRepository from '../..//test/repositories/in-memory-notifications.repository';
+import SendNotification from './send-notification';
 
 describe('Send notification unit test', () => {
   it('should be able to send a notification', async () => {
-    const sendNotification = new SendNotification(notificationRepsitory);
+    const notificationsRepository = new InMemoryNotificationRepository();
+    const sendNotification = new SendNotification(notificationsRepository);
     const { notification } = await sendNotification.execute({
       recipientId: randomUUID(),
       content: 'This is one notification',
@@ -20,5 +14,8 @@ describe('Send notification unit test', () => {
     });
 
     expect(notification).toBeTruthy();
+    expect(notificationsRepository.notifications).toHaveLength(1);
+    expect(notificationsRepository.notifications[0]).toEqual(notification);
+    expect(notificationsRepository.notifications).toContainEqual(notification);
   });
 });

@@ -1,4 +1,4 @@
-import { Content } from './content';
+import Content from './content';
 describe('Unit test content', () => {
   it('should be able to create a notification content', () => {
     const content = new Content('Voce tem uma notificação');

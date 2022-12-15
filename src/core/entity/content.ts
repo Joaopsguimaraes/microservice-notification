@@ -1,4 +1,4 @@
-export class Content {
+export default class Content {
   private readonly content: string;
 
   get value(): string {

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Notification } from './notification';
+import Notification from './notification';
 
 describe('Unit test notification', () => {
   it('should be able to create a notification content', () => {
