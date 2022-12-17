@@ -6,13 +6,7 @@ describe('Unit test notification', () => {
     const expectedRecipientId: string = randomUUID();
     const expectedContent = 'Voce tem uma nova solicitacao';
     const expectedCategory = 'social';
-
-    const content = Notification.New(
-      expectedRecipientId,
-      expectedContent,
-      expectedCategory,
-    );
-
+    const content = Notification.send(expectedRecipientId, expectedContent, expectedCategory);
     expect(content).toBeTruthy();
   });
 });

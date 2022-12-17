@@ -14,14 +14,11 @@ interface SendNotificationResponse {
 @Injectable()
 export default class SendNotification {
   constructor(private notificationsRepository: NotificationRepository) {}
-  async execute(
-    request: SendNotificationRequest,
-  ): Promise<SendNotificationResponse> {
+
+  async execute(request: SendNotificationRequest): Promise<SendNotificationResponse> {
     const { category, content, recipientId } = request;
-    const notification = Notification.New(recipientId, content, category);
+    const notification = Notification.send(recipientId, content, category);
     await this.notificationsRepository.create(notification);
-    return {
-      notification,
-    };
+    return { notification };
   }
 }
