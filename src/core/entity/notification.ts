@@ -8,18 +8,18 @@ interface NotificationsProps {
   category: string;
   readAt?: Date | null;
   canceledAt?: Date | null;
-  createAt: Date;
+  createdAt: Date;
 }
 
 export default class Notification {
   private _id: string;
   private props: NotificationsProps;
 
-  protected constructor(props: Replace<NotificationsProps, { createAt?: Date }>) {
-    this._id = randomUUID();
+  constructor(props: Replace<NotificationsProps, { createdAt?: Date }>, id?: string) {
+    this._id = id ?? randomUUID();
     this.props = {
       ...props,
-      createAt: props.createAt ?? new Date(),
+      createdAt: props.createdAt ?? new Date(),
     };
     this.props.readAt = null;
     this.props.canceledAt = null;
@@ -62,7 +62,7 @@ export default class Notification {
   }
 
   public get createdAt() {
-    return this.props.createAt;
+    return this.props.createdAt;
   }
 
   public get canceledAt() {
